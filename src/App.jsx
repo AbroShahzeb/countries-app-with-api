@@ -6,7 +6,7 @@ import CountryDetails from "./pages/CountryDetails";
 function App() {
   const [theme, setTheme] = useState("dark");
   return (
-    <Router>
+    <Router basename={import.meta.env.DEV ? "/" : "/react-vite-gh-pages/"}>
       <Routes>
         <Route
           path="/"
