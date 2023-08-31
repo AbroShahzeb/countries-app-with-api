@@ -25,7 +25,7 @@ export default function CountryDetails({ theme, setTheme }) {
       <div>
         <div className="container mx-auto mt-8 flex items-center px-4 sm:px-4 md:mt-12 md:px-8 lg:px-20">
           <Link
-            to="/"
+            to={import.meta.env.DEV ? "/" : "/countries-app-with-api/"}
             className=" flex items-center gap-4 bg-white p-3 px-5 dark:bg-dark-blue"
           >
             <img
