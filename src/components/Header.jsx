@@ -34,14 +34,7 @@ export default function Header({ theme, setTheme }) {
 
   return (
     <header className="flex w-full items-center justify-between bg-white  px-4 py-8 shadow-sm dark:bg-dark-blue sm:px-4 md:px-8  lg:px-20">
-      <h1
-        className=" text-lg font-bold"
-        onClick={() =>
-          import.meta.env.DEV
-            ? navigate("/")
-            : navigate("/countries-app-with-api/")
-        }
-      >
+      <h1 className=" text-lg font-bold" onClick={() => navigate("/")}>
         Where in the world?
       </h1>
       <div
