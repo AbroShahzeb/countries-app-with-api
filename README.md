@@ -44,7 +44,7 @@ Users should be able to:
 
 ### Details Page - Light Mode
 
-![Home - Dark](./public//screenshots/home-dark.png)
+![Home - Dark](./public//screenshots/details-light.png)
 
 ### Links
 
