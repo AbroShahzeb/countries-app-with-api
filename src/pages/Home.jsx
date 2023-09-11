@@ -9,6 +9,7 @@ import CountryList from "../components/CountryList";
 function Home({ theme, setTheme }) {
   const [countries, setCountries] = useState([]);
   const [countryName, setCountryName] = useState("");
+  const [loading, setLoading] = useState(false);
   const [region, setRegion] = useState("default");
 
   let filteredCountries =
@@ -18,9 +19,11 @@ function Home({ theme, setTheme }) {
 
   useEffect(function () {
     async function getCountryData() {
+      setLoading(true);
       const res = await fetch("https://restcountries.com/v3.1/all");
       const data = await res.json();
       setCountries(data);
+      setLoading(false);
     }
 
     getCountryData();
@@ -28,8 +31,17 @@ function Home({ theme, setTheme }) {
 
   useEffect(
     function () {
+      async function getCountriesData() {
+        setLoading(true);
+        const res = await fetch("https://restcountries.com/v3.1/all");
+        const data = await res.json();
+        setCountries(data);
+        setLoading(false);
+      }
       const abortController = new AbortController();
+
       async function getCountryData() {
+        setLoading(true);
         const res = await fetch(
           `https://restcountries.com/v3.1/name/${countryName}`,
           {
@@ -43,36 +55,18 @@ function Home({ theme, setTheme }) {
         } else {
           setCountries([]);
         }
+        setLoading(false);
+      }
+      if (countryName.length > 2) {
+        getCountryData();
       }
 
-      getCountryData();
+      if (countryName.length === 0) {
+        getCountriesData();
+      }
 
       return () => abortController.abort();
     },
-    [countryName],
-  );
-
-  useEffect(
-    function () {
-      const abortController = new AbortController();
-      async function getCountryData() {
-        const res = await fetch(`https://restcountries.com/v3.1/all`, {
-          signal: abortController.signal,
-        });
-
-        if (res.ok) {
-          const data = await res.json();
-          setCountries(data);
-        } else {
-          setCountries([]);
-        }
-      }
-
-      getCountryData();
-
-      return () => abortController.abort();
-    },
-
     [countryName],
   );
 
@@ -87,8 +81,11 @@ function Home({ theme, setTheme }) {
         />
         <Filters region={region} setRegion={setRegion} />
       </Controls>
-
-      <CountryList countries={filteredCountries} />
+      {loading ? (
+        <p className="mt-16 text-center text-2xl font-bold">Loading...</p>
+      ) : (
+        <CountryList countries={filteredCountries} />
+      )}
     </div>
   );
 }

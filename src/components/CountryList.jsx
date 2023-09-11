@@ -11,7 +11,7 @@ export default function CountryList({ countries }) {
           })}
         </div>
       ) : (
-        <p className="mt-16 grid h-full place-content-center text-center text-xl">
+        <p className="mt-16 grid h-full place-content-center text-center text-2xl font-medium">
           No country found
         </p>
       )}
