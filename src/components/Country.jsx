@@ -1,13 +1,18 @@
+/* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
 
 export default function Country({ country }) {
   return (
     <div className="overflow-hidden rounded-md bg-white pb-8 shadow-md dark:bg-dark-blue">
-      <img
-        src={country.flags.png}
-        alt={country.name.common + "flag"}
-        className="h-[175px] w-full object-cover"
-      />
+      <Link
+        to={`/${country.name.common.toLocaleLowerCase().split(" ").join("-")}`}
+      >
+        <img
+          src={country.flags.png}
+          alt={country.name.common + "flag"}
+          className="h-[175px] w-full object-cover"
+        />
+      </Link>
       <div className="flex flex-col gap-5 p-4">
         <Link
           to={`/${country.name.common
