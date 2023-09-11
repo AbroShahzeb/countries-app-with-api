@@ -1,4 +1,6 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import MoonIconLight from "/icons/icon-moon-light.svg";
+import MoonIconDark from "/icons/icon-moon-dark.svg";
 
 export default function Header({ theme, setTheme }) {
   // Function to toggle the theme
@@ -35,11 +37,7 @@ export default function Header({ theme, setTheme }) {
         onClick={toggleTheme}
       >
         <img
-          src={
-            theme === "dark"
-              ? "/icons/icon-moon-dark.svg"
-              : "/icons/icon-moon-light.svg"
-          }
+          src={theme === "dark" ? MoonIconDark : MoonIconLight}
           alt="Moon Icon Light Mode"
           className="w-4 -rotate-[30deg]"
         />

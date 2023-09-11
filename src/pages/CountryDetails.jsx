@@ -1,13 +1,17 @@
 /* eslint-disable react/prop-types */
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Header from "../components/Header";
+import BackIconLight from "/icons/icon-back-light.svg";
+import BackIconDark from "/icons/icon-back-dark.svg";
 
 export default function CountryDetails({ theme, setTheme }) {
   let { name } = useParams();
   name = name.split("-").join(" ");
   const [country, setCountry] = useState({});
   const [borderCountries, setBorderCountries] = useState([]);
+
+  const navigate = useNavigate();
 
   useEffect(
     function () {
@@ -45,22 +49,18 @@ export default function CountryDetails({ theme, setTheme }) {
     <div className="min-h-screen  bg-light-mode-bg pb-8 text-light-mode-text dark:bg-dark-mode-bg dark:text-white">
       <Header theme={theme} setTheme={setTheme} />
       <div>
-        <div className="container mx-auto mt-8 flex items-center px-4 sm:px-4 md:mt-12 md:px-8 lg:px-20">
-          <Link
-            to={import.meta.env.DEV ? "/" : "/countries-app-with-api/"}
-            className=" flex items-center gap-4 bg-white p-3 px-5 dark:bg-dark-blue"
-          >
+        <div
+          className="container mx-auto mt-8 flex items-center px-4 sm:px-4 md:mt-12 md:px-8 lg:px-20"
+          onClick={() => navigate(-1)}
+        >
+          <li className=" flex items-center gap-4 bg-white p-3 px-5 dark:bg-dark-blue">
             <img
               className="h-4"
-              src={
-                theme === "dark"
-                  ? "/icons/icon-back-dark.svg"
-                  : "/icons/icon-back-light.svg"
-              }
+              src={theme === "dark" ? BackIconDark : BackIconLight}
               alt="Back arrow"
             />
             <p>Back</p>
-          </Link>
+          </li>
         </div>
 
         <div className="container mx-auto mt-8 px-4 sm:flex sm:items-center sm:gap-5 sm:px-4 md:mt-12 md:justify-center md:px-8 lg:px-20 ">
