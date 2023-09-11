@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
 import Header from "../components/Header";
 import Controls from "../components/Controls";
@@ -10,6 +11,11 @@ function Home({ theme, setTheme }) {
   const [countryName, setCountryName] = useState("");
   const [region, setRegion] = useState("default");
 
+  let filteredCountries =
+    region !== "default"
+      ? countries.filter((country) => country.region === region)
+      : countries;
+
   useEffect(function () {
     async function getCountryData() {
       const res = await fetch("https://restcountries.com/v3.1/all");
@@ -19,17 +25,6 @@ function Home({ theme, setTheme }) {
 
     getCountryData();
   }, []);
-
-  useEffect(
-    function () {
-      if (!(region === "default")) {
-        setCountries((countries) => {
-          return countries.filter((country) => country.region === region);
-        });
-      }
-    },
-    [region],
-  );
 
   useEffect(
     function () {
@@ -49,17 +44,31 @@ function Home({ theme, setTheme }) {
           setCountries([]);
         }
       }
-      if (countryName) {
-        getCountryData();
-      } else {
-        async function getCountryData() {
-          const res = await fetch("https://restcountries.com/v3.1/all");
+
+      getCountryData();
+
+      return () => abortController.abort();
+    },
+    [countryName],
+  );
+
+  useEffect(
+    function () {
+      const abortController = new AbortController();
+      async function getCountryData() {
+        const res = await fetch(`https://restcountries.com/v3.1/all`, {
+          signal: abortController.signal,
+        });
+
+        if (res.ok) {
           const data = await res.json();
           setCountries(data);
+        } else {
+          setCountries([]);
         }
-
-        getCountryData();
       }
+
+      getCountryData();
 
       return () => abortController.abort();
     },
@@ -79,7 +88,7 @@ function Home({ theme, setTheme }) {
         <Filters region={region} setRegion={setRegion} />
       </Controls>
 
-      <CountryList countries={countries} />
+      <CountryList countries={filteredCountries} />
     </div>
   );
 }
