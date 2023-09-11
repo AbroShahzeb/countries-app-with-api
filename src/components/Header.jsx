@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import MoonIconLight from "/icons/icon-moon-light.svg";
 import MoonIconDark from "/icons/icon-moon-dark.svg";
 
@@ -34,9 +34,9 @@ export default function Header({ theme, setTheme }) {
 
   return (
     <header className="flex w-full items-center justify-between bg-white  px-4 py-8 shadow-sm dark:bg-dark-blue sm:px-4 md:px-8  lg:px-20">
-      <h1 className=" text-lg font-bold" onClick={() => navigate("/")}>
-        Where in the world?
-      </h1>
+      <Link to={"/"}>
+        <h1 className=" text-lg font-bold">Where in the world?</h1>
+      </Link>
       <div
         className="flex cursor-pointer items-center gap-4"
         onClick={toggleTheme}
