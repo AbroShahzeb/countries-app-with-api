@@ -6,7 +6,7 @@ export default function Country({ country }) {
       <img
         src={country.flags.png}
         alt={country.name.common + "flag"}
-        className="h-auto w-full object-cover sm:h-[150px]"
+        className="h-[175px] w-full object-cover"
       />
       <div className="flex flex-col gap-5 p-4">
         <Link

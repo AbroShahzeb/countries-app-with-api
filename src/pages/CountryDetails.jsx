@@ -49,31 +49,33 @@ export default function CountryDetails({ theme, setTheme }) {
 
   return (
     <>
-      {loading ? (
-        <p>Loading</p>
-      ) : (
-        <div className="min-h-screen  bg-light-mode-bg pb-8 text-light-mode-text dark:bg-dark-mode-bg dark:text-white">
-          <Header theme={theme} setTheme={setTheme} />
-          <div>
-            <div
-              className="container mx-auto mt-8 flex items-center px-4 sm:px-4 md:mt-12 md:px-8 lg:px-20"
-              onClick={() => navigate(-1)}
-            >
-              <li className=" flex items-center gap-4 bg-white p-3 px-5 dark:bg-dark-blue">
-                <img
-                  className="h-4"
-                  src={theme === "dark" ? BackIconDark : BackIconLight}
-                  alt="Back arrow"
-                />
-                <p>Back</p>
-              </li>
-            </div>
+      <div className="min-h-screen  bg-light-mode-bg pb-8 text-light-mode-text dark:bg-dark-mode-bg dark:text-white">
+        <Header theme={theme} setTheme={setTheme} />
+        <div>
+          <div
+            className="container mx-auto mt-8 flex items-center px-4 sm:px-4 md:mt-12 md:px-8 lg:px-20"
+            onClick={() => navigate(-1)}
+          >
+            <li className=" flex items-center gap-4 bg-white p-3 px-5 dark:bg-dark-blue">
+              <img
+                className="h-4"
+                src={theme === "dark" ? BackIconDark : BackIconLight}
+                alt="Back arrow"
+              />
+              <p>Back</p>
+            </li>
+          </div>
 
-            <div className="container mx-auto mt-8 px-4 sm:flex sm:items-center sm:gap-5 sm:px-4 md:mt-12 md:justify-center md:px-8 lg:px-20 ">
+          {loading ? (
+            <p className="container mx-auto mt-8 px-4 text-center text-2xl font-bold sm:flex sm:items-center sm:gap-5 sm:px-4 md:mt-12 md:justify-between md:px-8 lg:px-20 ">
+              Loading...
+            </p>
+          ) : (
+            <div className="container mx-auto mt-8 px-4 sm:flex sm:items-start sm:gap-5 sm:px-4 md:mt-12 md:justify-between  md:px-8 lg:gap-24 lg:px-20 ">
               <img
                 src={country?.flags?.png}
                 alt={country?.name?.common + "flag"}
-                className="mt-16 w-full md:mt-0 md:w-1/3"
+                className="mt-16 w-full md:mr-auto md:mt-0 md:w-1/3 lg:w-1/2"
               />
 
               <div className="flex flex-col gap-6">
@@ -146,7 +148,7 @@ export default function CountryDetails({ theme, setTheme }) {
                   </ul>
                 </div>
 
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-2 lg:flex-row lg:items-center">
                   <h2 className="text-md font-semibold">Border Countries:</h2>
                   <ul className="flex flex-wrap gap-3">
                     {borderCountries.length ? (
@@ -165,9 +167,9 @@ export default function CountryDetails({ theme, setTheme }) {
                 </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
-      )}
+      </div>
     </>
   );
 }
